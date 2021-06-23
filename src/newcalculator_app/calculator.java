@@ -856,7 +856,26 @@ public class calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
-        jTextField1.setText(jTextField1.getText() + ".");
+        if (jLabel1.getText().length() <= 0) {
+            jTextField1.setText("Not Valid");
+            return;
+        }
+
+        String lastCharacter = jLabel1.getText().substring(jLabel1.getText().length() - 1);
+        System.out.println("lastCharacter la: " + lastCharacter);
+
+        if (lastCharacter.equals("+") || lastCharacter.equals("-") || lastCharacter.equals("*") || lastCharacter.equals("/")) {
+            jTextField1.setText(jTextField1.getText() + "0.");
+            jLabel1.setText(jLabel1.getText() + "0.");
+            arraylist.add("0.");
+        } else if (lastCharacter.equals("")) {
+            jTextField1.setText("Not Valid");
+            return;
+        } else {
+            jLabel1.setText(jLabel1.getText() + ".");
+            jTextField1.setText(jTextField1.getText() + ".");
+            arraylist.add(".");
+        }
     }//GEN-LAST:event_jButton39ActionPerformed
 
     private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
