@@ -372,6 +372,11 @@ public class calculator extends javax.swing.JFrame {
 
         jButton14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton14.setText("Sqrt");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         jButton15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton15.setText("C");
@@ -692,12 +697,13 @@ public class calculator extends javax.swing.JFrame {
                     .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -943,12 +949,33 @@ public class calculator extends javax.swing.JFrame {
         int length = jTextField1.getText().length();
         int number = jTextField1.getText().length() - 1;
 
-        if (length > 0) {
-            StringBuilder back = new StringBuilder(jTextField1.getText());
-            back.deleteCharAt(number);
-            String store = back.toString();
-            jTextField1.setText(store);
+        int lengthLabel = jLabel1.getText().length();
+        int numberLabel = jLabel1.getText().length() - 1;
+
+        System.out.println(jTextField1.getText());
+        System.out.println("number la: " + number);
+
+        if (length <= 0) {
+            System.out.println("Dung chuong trinh ");
+            return;
         }
+
+        StringBuilder back = new StringBuilder(jTextField1.getText());
+        back.deleteCharAt(number);
+        String store = back.toString();
+
+        StringBuilder backLabel = new StringBuilder(jLabel1.getText());
+        backLabel.deleteCharAt(numberLabel);
+        String storeLabel = backLabel.toString();
+
+        jTextField1.setText(store);
+        jLabel1.setText(storeLabel);
+        
+        int lastPosition = arraylist.size() - 1;
+        arraylist.remove(lastPosition);
+        
+        System.out.println("arraylist la: " + arraylist);
+
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
@@ -1055,6 +1082,12 @@ public class calculator extends javax.swing.JFrame {
 //        jTextField1.setText("");
         jLabel1.setText(num + "!");
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+
+        double number = Math.sqrt(Double.parseDouble(jTextField1.getText()));
+
+    }//GEN-LAST:event_jButton14ActionPerformed
 
     /**
      * @param args the command line arguments
