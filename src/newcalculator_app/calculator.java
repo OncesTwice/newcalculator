@@ -60,12 +60,20 @@ public class calculator extends javax.swing.JFrame {
     }
 
     public void arithmetic_operation() {
+        System.out.println("arraylist la: " + arraylist.toString());
+        String operation = arraylist.toString().replace(",", "");
+        operation = operation.replace("[", "");
+        operation = operation.replace("]", "");
+        operation = operation.replace(" ", "");
+        
+        System.out.println("opr la:" + operation);
+        
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         String str = jLabel1.getText();
         try {
             System.out.println("Ket qua la: " + engine.eval(str));
-            jTextField1.setText("" + engine.eval(str));
+            jTextField1.setText("" + engine.eval(operation));
         } catch (ScriptException ex) {
             Logger.getLogger(calculator.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -922,7 +930,7 @@ public class calculator extends javax.swing.JFrame {
         num = Double.parseDouble(jTextField1.getText());
 
         jTextField1.setText("");
-        jLabel1.setText(num + "/");
+        jLabel1.setText(jLabel1.getText() + "/");
         arraylist.add("/");
 
         System.out.println("arraylist la: " + arraylist);
@@ -933,7 +941,9 @@ public class calculator extends javax.swing.JFrame {
         jLabel1.setText("");
         jTextField1.setText("");
         num = 0.0;
-
+        
+        arraylist.removeAll(arraylist);
+        System.out.println("arraylist " + arraylist);
         System.out.println("num " + num);
     }//GEN-LAST:event_jButton15ActionPerformed
 
@@ -970,10 +980,10 @@ public class calculator extends javax.swing.JFrame {
 
         jTextField1.setText(store);
         jLabel1.setText(storeLabel);
-        
+
         int lastPosition = arraylist.size() - 1;
         arraylist.remove(lastPosition);
-        
+
         System.out.println("arraylist la: " + arraylist);
 
     }//GEN-LAST:event_jButton13ActionPerformed
@@ -1026,9 +1036,18 @@ public class calculator extends javax.swing.JFrame {
         double number = Double.parseDouble(jTextField1.getText());
 
         number = number * number;
-        jLabel1.setText(jLabel1.getText() + jTextField1.getText() + "^" + "2" + "=");
-        jTextField1.setText("");
-        jTextField1.setText(jTextField1.getText() + format.format(number));
+        
+        if(jLabel1.getText().length() == 0){
+            jLabel1.setText("" + number);
+        }
+        else{
+            jLabel1.setText(jLabel1.getText() + number);
+        }
+        
+        
+        
+        System.out.println("label la: " + jLabel1.getText());
+
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
