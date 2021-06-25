@@ -94,9 +94,8 @@ public class calculator extends javax.swing.JFrame {
 
             return;
         }
-        
+
         // mod function 
-        
         if (calculation.equals("mod")) {
             try {
                 secondNumber = Double.parseDouble(jTextField1.getText());
@@ -119,8 +118,6 @@ public class calculator extends javax.swing.JFrame {
 
             return;
         }
-        
-        
 
         System.out.println("arraylist la: " + arraylist.toString());
         String operation = arraylist.toString().replace(",", "");
@@ -636,6 +633,11 @@ public class calculator extends javax.swing.JFrame {
 
         jButton31.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton31.setText("Ans");
+        jButton31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton31ActionPerformed(evt);
+            }
+        });
 
         jButton32.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton32.setText("1");
@@ -1623,8 +1625,8 @@ public class calculator extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         double number = 0;
         double sin = 1;
-        double cos =0;
-        
+        double cos = 0;
+
         if (isOverwrite == true) {
             System.out.println("ban chua nhap so thu nhat");
             jTextField1.setText("");
@@ -1666,10 +1668,10 @@ public class calculator extends javax.swing.JFrame {
             sin = Math.sin(Math.toRadians(number));
             sin = Math.round(sin);
             System.out.println("sin la: " + sin);
-            System.out.println("cos la: "+cos);
+            System.out.println("cos la: " + cos);
             number = cos / sin;
 //            number = Math.round(number);      
-            
+
         } catch (Exception e) {
             System.out.println("Not valid: ");
             jTextField1.setText("Not valid");
@@ -1932,6 +1934,19 @@ public class calculator extends javax.swing.JFrame {
 
         System.out.println("label la: " + jLabel1.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+//        clearlabel();
+        arraylist.removeAll(arraylist);
+        arraylist.add(jTextField1.getText());
+        
+        jLabel1.setText(jTextField1.getText());
+        jTextField1.setText(jTextField1.getText());
+        
+        isOverwrite = false;
+        
+        System.out.println("ArrayList la: " + arraylist);     
+    }//GEN-LAST:event_jButton31ActionPerformed
 
     /**
      * @param args the command line arguments
