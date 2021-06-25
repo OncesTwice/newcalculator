@@ -28,6 +28,7 @@ public class calculator extends javax.swing.JFrame {
     String labelDefault = "";
     double tempResult = 0.0;
     double firstNumber = 0;
+    double secondNumber = 0;
 
     ArrayList<String> arraylist = new ArrayList<String>();
 
@@ -60,7 +61,7 @@ public class calculator extends javax.swing.JFrame {
         jRadioButton1.setEnabled(false); //ON button disable
     }
 
-    public void arithmetic_operation() {
+    public void arithmetic_operation() {  // equal function
         double hat = 0;
         double result = 0;
 
@@ -93,6 +94,33 @@ public class calculator extends javax.swing.JFrame {
 
             return;
         }
+        
+        // mod function 
+        
+        if (calculation.equals("mod")) {
+            try {
+                secondNumber = Double.parseDouble(jTextField1.getText());
+
+            } catch (Exception e) {
+                jLabel1.setText("");
+                jTextField1.setText("Not Valid");
+                return;
+            }
+
+            result = (firstNumber % secondNumber);
+            jLabel1.setText("");
+            jTextField1.setText("" + result);
+
+            isOverwrite = true;
+            calculation = "";
+            arraylist.removeAll(arraylist);
+
+            System.out.println("arraylist la: " + arraylist);
+
+            return;
+        }
+        
+        
 
         System.out.println("arraylist la: " + arraylist.toString());
         String operation = arraylist.toString().replace(",", "");
@@ -367,6 +395,11 @@ public class calculator extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("mod");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setText("Sin");
@@ -1589,6 +1622,9 @@ public class calculator extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         double number = 0;
+        double sin = 1;
+        double cos =0;
+        
         if (isOverwrite == true) {
             System.out.println("ban chua nhap so thu nhat");
             jTextField1.setText("");
@@ -1624,11 +1660,16 @@ public class calculator extends javax.swing.JFrame {
         }
 
         try {
-            number = Math.pow(Math.tan(Math.toRadians(number)), -1);
-            number = Double.parseDouble("" + number);
-            System.out.println("number 1469 la: " + number);
-            number = Math.round(number);
-
+            System.out.println("number la: " + number);
+            cos = Math.cos(Math.toRadians(number));
+            cos = Math.round(cos);
+            sin = Math.sin(Math.toRadians(number));
+            sin = Math.round(sin);
+            System.out.println("sin la: " + sin);
+            System.out.println("cos la: "+cos);
+            number = cos / sin;
+//            number = Math.round(number);      
+            
         } catch (Exception e) {
             System.out.println("Not valid: ");
             jTextField1.setText("Not valid");
@@ -1857,6 +1898,40 @@ public class calculator extends javax.swing.JFrame {
             jTextField1.setText(jTextField1.getText() + Math.PI);
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        double number = 0;
+        if (isOverwrite == true) {
+            System.out.println("ban chua nhap so thu nhat");
+            jTextField1.setText("");
+            jLabel1.setText("please enter the number");
+            return;
+        }
+
+        try {
+            firstNumber = Double.parseDouble(jTextField1.getText());
+
+        } catch (Exception e) {
+            System.out.println("Not valid: ");
+            jTextField1.setText("Not valid");
+            isOverwrite = true;
+            return;
+        }
+
+        try {
+            jLabel1.setText(jLabel1.getText() + " mod ");
+        } catch (Exception e) {
+            jLabel1.setText("");
+            jTextField1.setText("Not valid");
+            return;
+        }
+
+        jTextField1.setText("");
+
+        calculation = "mod";
+
+        System.out.println("label la: " + jLabel1.getText());
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
