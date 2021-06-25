@@ -107,17 +107,22 @@ public class calculator extends javax.swing.JFrame {
         String str = jLabel1.getText();
 
         try {
-            jTextField1.setText("" + engine.eval(operation));
+
             System.out.println("Ket qua la: " + engine.eval(str));
+
+            jTextField1.setText("" + engine.eval(str));
+            jLabel1.setText("");
+            arraylist.removeAll(arraylist);
+            isOverwrite = true;
+            return;
         } catch (Exception e) {
             jLabel1.setText("");
             jTextField1.setText("Not Valid");
-            arraylist.removeAll(arraylist);
+
             isOverwrite = true;
             return;
         }
 
-        return;
 //        switch (calculation) {
 //
 //            case 5:
@@ -173,7 +178,6 @@ public class calculator extends javax.swing.JFrame {
 //                break;
 //
 //        }
-
     }
 
     @Override
@@ -398,6 +402,11 @@ public class calculator extends javax.swing.JFrame {
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton6.setText("π");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton7.setText("xʸ");
@@ -426,9 +435,19 @@ public class calculator extends javax.swing.JFrame {
 
         jButton10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton10.setText("|x|");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton11.setText("e");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton12.setText("x³");
@@ -464,6 +483,11 @@ public class calculator extends javax.swing.JFrame {
 
         jButton16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton16.setText("eˣ");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
 
         jButton17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton17.setText("x²");
@@ -499,6 +523,11 @@ public class calculator extends javax.swing.JFrame {
 
         jButton21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton21.setText("ln");
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton21ActionPerformed(evt);
+            }
+        });
 
         jButton22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton22.setText("7");
@@ -534,6 +563,11 @@ public class calculator extends javax.swing.JFrame {
 
         jButton26.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton26.setText("Log");
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton26ActionPerformed(evt);
+            }
+        });
 
         jButton27.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton27.setText("4");
@@ -881,16 +915,11 @@ public class calculator extends javax.swing.JFrame {
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
         clearlabel();
 
-        System.out.println(10 + 11 * 12);
         arraylist.add("5");
         System.out.println("ArrayList la: " + arraylist);
-//        System.out.println("array: " + array);
+
         jLabel1.setText(jLabel1.getText() + "5");
         jTextField1.setText(jTextField1.getText() + "5");
-
-        System.out.println("num va getText lan luot la: " + num + " " + jTextField1.getText());
-        num = num + Double.parseDouble(jTextField1.getText());
-        System.out.println("num " + num);
 
     }//GEN-LAST:event_jButton29ActionPerformed
 
@@ -1136,14 +1165,15 @@ public class calculator extends javax.swing.JFrame {
             double value = Double.parseDouble(jTextField1.getText());
             value = -value;
             jTextField1.setText("" + value);
+            jLabel1.setText("" + value);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-
         double number = 0;
+
         if (isOverwrite == true) {
             System.out.println("ban chua nhap so thu nhat");
             jTextField1.setText("");
@@ -1280,6 +1310,9 @@ public class calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        int input;
+        long fact = 1;
+
         if (isOverwrite == true) {
             System.out.println("ban chua nhap so thu nhat");
             jTextField1.setText("");
@@ -1287,10 +1320,35 @@ public class calculator extends javax.swing.JFrame {
             return;
         }
 
-        num = Double.parseDouble(jTextField1.getText());
-//        calculation = 6; giai thua
-//        jTextField1.setText("");
-        jLabel1.setText(num + "!");
+        if (jTextField1.getText().length() == 0) {
+            System.out.println("hi");
+            return;
+        }
+
+        try {
+            input = Integer.parseInt(jTextField1.getText());
+            System.out.println("success: " + input);
+        } catch (NumberFormatException ex) {
+            System.out.println("Given String is not parsable to int");
+            jTextField1.setText("");
+            return;
+        }
+
+        if (input < 0) {
+            System.out.println("khong hop le");
+            jTextField1.setText("");
+            return;
+        }
+
+        for (int i = 1; i <= input; i++) {
+            fact = fact * i;
+            System.out.println("fact = " + fact + " i bang " + i);
+        }
+
+        System.out.println(fact);
+        jTextField1.setText("" + fact);
+        jLabel1.setText("" + fact);
+        isOverwrite = true;
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
@@ -1381,10 +1439,18 @@ public class calculator extends javax.swing.JFrame {
             return;
         }
 
-        number = Math.sin(Math.toRadians(number));
+        if (number % Math.PI == 0) {
+            number = Math.sin(number);
+        } else {
+            number = Math.sin(Math.toRadians(number));
+        }
+
+        number = Math.round(number);
+        System.out.println("number la:  " + number);
 
         jLabel1.setText("" + number);
         jTextField1.setText("" + number);
+        arraylist.removeAll(arraylist);
 
         isOverwrite = true;
 
@@ -1411,10 +1477,18 @@ public class calculator extends javax.swing.JFrame {
             return;
         }
 
-        number = Math.cos(Math.toRadians(number));
+        if (number % Math.PI == 0) {
+            number = Math.cos(number);
+        } else {
+            number = Math.cos(Math.toRadians(number));
+        }
+
+        number = Math.round(number);
+        System.out.println("number la:  " + number);
 
         jLabel1.setText("" + number);
         jTextField1.setText("" + number);
+        arraylist.removeAll(arraylist);
 
         isOverwrite = true;
 
@@ -1457,7 +1531,29 @@ public class calculator extends javax.swing.JFrame {
             return;
         }
 
-        if (number % -360 == 90 && number < 0) {
+        if (number % -360 == -90 && number < 0) {
+            System.out.println("Not valid: ");
+            jTextField1.setText("Not valid");
+            isOverwrite = true;
+            return;
+        }
+
+        // PI 
+        if (number == (Math.PI / 2) || number == -(Math.PI / 2)) {
+            System.out.println("Not valid: ");
+            jTextField1.setText("Not valid");
+            isOverwrite = true;
+            return;
+        }
+
+        if (number % (2 * Math.PI) == (Math.PI / 2) && number > 0) {
+            System.out.println("Not valid: ");
+            jTextField1.setText("Not valid");
+            isOverwrite = true;
+            return;
+        }
+
+        if (number % -(2 * Math.PI) == -(Math.PI / 2) && number < 0) {
             System.out.println("Not valid: ");
             jTextField1.setText("Not valid");
             isOverwrite = true;
@@ -1465,8 +1561,14 @@ public class calculator extends javax.swing.JFrame {
         }
 
         try {
-            number = Math.tan(Math.toRadians(number));
-            number = Double.parseDouble(""+number);
+
+            if (number % Math.PI == 0) {
+                number = Math.tan(number);
+            } else {
+                number = Math.tan(Math.toRadians(number));
+            }
+
+            number = Double.parseDouble("" + number);
             System.out.println("number 1469 la: " + number);
             number = Math.round(number);
 
@@ -1507,25 +1609,23 @@ public class calculator extends javax.swing.JFrame {
 
         System.out.println("Number la: " + number);
 
-        if (number == 0 ) {
+        if (number == 0) {
             System.out.println("Not valid: ");
             jTextField1.setText("Not valid");
             isOverwrite = true;
             return;
         }
 
-        if (number % 180 == 0 ) {
+        if (number % 180 == 0) {
             System.out.println("Not valid: ");
             jTextField1.setText("Not valid");
             isOverwrite = true;
             return;
         }
-
-       
 
         try {
-            number =Math.pow(Math.tan(Math.toRadians(number)),-1) ;
-            number = Double.parseDouble(""+number);
+            number = Math.pow(Math.tan(Math.toRadians(number)), -1);
+            number = Double.parseDouble("" + number);
             System.out.println("number 1469 la: " + number);
             number = Math.round(number);
 
@@ -1543,6 +1643,220 @@ public class calculator extends javax.swing.JFrame {
 
         System.out.println("label la: " + jLabel1.getText());
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        double number = 0;
+
+        if (isOverwrite == true) {
+            System.out.println("ban chua nhap so thu nhat");
+            jTextField1.setText("");
+            jLabel1.setText("please enter the number");
+            return;
+        }
+
+        clearlabel();
+
+        try {
+            number = Double.parseDouble(jTextField1.getText());
+        } catch (Exception e) {
+            System.out.println("Not valid: ");
+            jTextField1.setText("Not valid");
+            isOverwrite = true;
+            return;
+        }
+
+        number = Math.abs(number);
+
+        jLabel1.setText("" + number);
+        jTextField1.setText("" + number);
+
+        isOverwrite = true;
+
+        System.out.println("label la: " + jLabel1.getText());
+
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
+        double number = 0;
+
+        if (isOverwrite == true) {
+            System.out.println("ban chua nhap so thu nhat");
+            jTextField1.setText("");
+            jLabel1.setText("please enter the number");
+            return;
+        }
+
+        clearlabel();
+
+        try {
+            number = Double.parseDouble(jTextField1.getText());
+        } catch (Exception e) {
+            System.out.println("Not valid: ");
+            jTextField1.setText("Not valid");
+            jLabel1.setText("Not valid");
+            arraylist.removeAll(arraylist);
+            isOverwrite = true;
+            return;
+        }
+        System.out.println("number la: " + number);
+
+        if (number <= 0) {
+            System.out.println("Not valid: ");
+            jTextField1.setText("Not valid");
+            jLabel1.setText("Not valid");
+            arraylist.removeAll(arraylist);
+            isOverwrite = true;
+            return;
+        }
+        number = Math.log10(number);
+
+        jLabel1.setText("" + number);
+        jTextField1.setText("" + number);
+
+        isOverwrite = true;
+
+        System.out.println("label la: " + jLabel1.getText());
+
+    }//GEN-LAST:event_jButton26ActionPerformed
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        double number = 0;
+
+        if (isOverwrite == true) {
+            System.out.println("ban chua nhap so thu nhat");
+            jTextField1.setText("");
+            jLabel1.setText("please enter the number");
+            return;
+        }
+
+        clearlabel();
+
+        try {
+            number = Double.parseDouble(jTextField1.getText());
+        } catch (Exception e) {
+            System.out.println("Not valid: ");
+            jTextField1.setText("Not valid");
+            jLabel1.setText("Not valid");
+            arraylist.removeAll(arraylist);
+            isOverwrite = true;
+            return;
+        }
+        System.out.println("number la: " + number);
+
+        if (number <= 0) {
+            System.out.println("Not valid: ");
+            jTextField1.setText("Not valid");
+            jLabel1.setText("Not valid");
+            arraylist.removeAll(arraylist);
+            isOverwrite = true;
+            return;
+        }
+        number = Math.log(number);
+
+        jLabel1.setText("" + number);
+        jTextField1.setText("" + number);
+
+        isOverwrite = true;
+
+        System.out.println("label la: " + jLabel1.getText());
+    }//GEN-LAST:event_jButton21ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        int lengthLabel = jLabel1.getText().length();
+
+        clearlabel();
+
+        if (lengthLabel > 0) {
+            int lastPosition = arraylist.size() - 1;
+            String lastCharacter = arraylist.get(lastPosition);
+            System.out.println("test la: " + lastCharacter);
+
+            if (lastCharacter.equals("+") || lastCharacter.equals("-") || lastCharacter.equals("*") || lastCharacter.equals("/")) {
+                arraylist.add("" + Math.E);
+                System.out.println("ArrayList la: " + arraylist);
+
+                jLabel1.setText(jLabel1.getText() + Math.E);
+                jTextField1.setText(jTextField1.getText() + Math.E);
+                return;
+            }
+
+            arraylist.add("*" + Math.E);
+            System.out.println("ArrayList la: " + arraylist);
+
+            jLabel1.setText(jLabel1.getText() + "*" + Math.E);
+            jTextField1.setText("" + Math.E);
+        } else {
+            arraylist.add("" + Math.E);
+            System.out.println("ArrayList la: " + arraylist);
+
+            jLabel1.setText(jLabel1.getText() + Math.E);
+            jTextField1.setText(jTextField1.getText() + Math.E);
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        double number = 0;
+
+        if (isOverwrite == true) {
+            System.out.println("ban chua nhap so thu nhat");
+            jTextField1.setText("");
+            jLabel1.setText("please enter the number");
+            return;
+        }
+
+        clearlabel();
+
+        try {
+            number = Double.parseDouble(jTextField1.getText());
+        } catch (Exception e) {
+            System.out.println("Not valid: ");
+            jTextField1.setText("Not valid");
+            isOverwrite = true;
+            return;
+        }
+
+        number = Math.pow(Math.E, number);
+
+        jLabel1.setText("" + number);
+        jTextField1.setText("" + number);
+
+        isOverwrite = true;
+
+        System.out.println("label la: " + jLabel1.getText());
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        int lengthLabel = jLabel1.getText().length();
+
+        clearlabel();
+
+        if (lengthLabel > 0) {
+            int lastPosition = arraylist.size() - 1;
+            String lastCharacter = arraylist.get(lastPosition);
+            System.out.println("test la: " + lastCharacter);
+
+            if (lastCharacter.equals("+") || lastCharacter.equals("-") || lastCharacter.equals("*") || lastCharacter.equals("/")) {
+                arraylist.add("" + Math.PI);
+                System.out.println("ArrayList la: " + arraylist);
+
+                jLabel1.setText(jLabel1.getText() + Math.PI);
+                jTextField1.setText(jTextField1.getText() + Math.PI);
+                return;
+            }
+
+            arraylist.add("*" + Math.PI);
+            System.out.println("ArrayList la: " + arraylist);
+
+            jLabel1.setText(jLabel1.getText() + "*" + Math.PI);
+            jTextField1.setText("" + Math.PI);
+        } else {
+            arraylist.add("" + Math.PI);
+            System.out.println("ArrayList la: " + arraylist);
+
+            jLabel1.setText(jLabel1.getText() + Math.PI);
+            jTextField1.setText(jTextField1.getText() + Math.PI);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
